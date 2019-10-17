@@ -1,6 +1,7 @@
 from os import listdir
 from os.path import isfile, join
-import threading, time
+import threading
+import time
 import requests
 import paho.mqtt.client as mqtt
 import json
@@ -10,7 +11,7 @@ MODO = "mqtt"
 
 class Camion(threading.Thread):
 
-    def __init__(self, camion,  time, data, mode = ""):
+    def __init__(self, camion,  time, data, mode=""):
         super(Camion, self).__init__()
         self.camion = camion
         self.time = time
@@ -35,7 +36,6 @@ class Camion(threading.Thread):
 
         print("[{0}] Fin de simulacion".format(self.camion))
 
-    
     def enviar_request_response(self, entry):
         parts = entry.split(",")
         data = {
@@ -51,7 +51,6 @@ class Camion(threading.Thread):
             print("{0} envio datos".format(self.camion))
         else:
             print("{0} no pudo enviar datos".format(self.camion))
-       
 
     def enviar_mqtt(self, entry):
         parts = entry.split(",")
@@ -64,7 +63,6 @@ class Camion(threading.Thread):
         })
 
         self.client.publish("gps", payload=data, qos=0, retain=False)
-
 
 
 print("Cargando datos ...")
@@ -80,8 +78,8 @@ for path in onlyfiles:
 
     with open("./simulacion/{0}".format(path)) as archivo:
         for linea in archivo:
-            linea = linea.replace('\r','').replace('\n','')
-            if len(linea)>0:
+            linea = linea.replace('\r', '').replace('\n', '')
+            if len(linea) > 0:
                 camiones[camion].append(linea)
 
 print("Iniciando simulacion para {0} camiones".format(len(camiones)))
