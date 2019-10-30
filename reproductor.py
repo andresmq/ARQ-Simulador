@@ -6,12 +6,12 @@ import requests
 import paho.mqtt.client as mqtt
 import json
 
-MODO = "mqtt"
+MODO = "rest"
 
 
 class Camion(threading.Thread):
 
-    def __init__(self, camion,  time, data, mode=""):
+    def __init__(self, camion, time, data, mode=""):
         super(Camion, self).__init__()
         self.camion = camion
         self.time = time
